@@ -1,0 +1,1388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TatiLash MZ – Pestañas Pelo a Pelo | Popayán</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --negro: #0a0a0a;
+  --blanco: #faf8f5;
+  --dorado: #c9a84c;
+  --dorado-claro: #e8cc7a;
+  --gris: #6b6b6b;
+  --gris-claro: #d4d0cc;
+  --rosa: #e8c4c4;
+  --rosa-claro: #f5e8e8;
+  --rosa-medio: #d4a0a0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--negro);
+  color: var(--blanco);
+  overflow-x: hidden;
+}
+
+/* ─── PARTÍCULAS DE FONDO ─── */
+.bg-particles {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 0; overflow: hidden;
+}
+.particle {
+  position: absolute; width: 2px; height: 2px;
+  background: var(--dorado); border-radius: 50%;
+  animation: float linear infinite;
+  opacity: 0;
+}
+@keyframes float {
+  0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-10px) rotate(720deg); opacity: 0; }
+}
+
+/* ─── HERO ─── */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 2rem;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1010 40%, #0f0a0a 100%);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: radial-gradient(ellipse at 50% 30%, rgba(201,168,76,0.08) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 70%, rgba(232,196,196,0.06) 0%, transparent 50%);
+}
+.hero-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 10vw, 8rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--dorado);
+  text-shadow: 0 0 60px rgba(201,168,76,0.3);
+  animation: fadeIn 1.5s ease forwards;
+  position: relative; z-index: 1;
+}
+.hero-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1rem, 3vw, 1.6rem);
+  color: var(--rosa);
+  letter-spacing: 0.3em;
+  margin-top: 0.5rem;
+  animation: fadeIn 2s ease 0.3s both;
+  position: relative; z-index: 1;
+}
+.hero-tagline {
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gris);
+  animation: fadeIn 2s ease 0.6s both;
+  position: relative; z-index: 1;
+}
+.gold-line {
+  width: 120px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--dorado), transparent);
+  margin: 1.5rem auto;
+  animation: expandLine 1.5s ease 0.8s both;
+  position: relative; z-index: 1;
+}
+@keyframes expandLine {
+  from { width: 0; opacity: 0; }
+  to { width: 120px; opacity: 1; }
+}
+.cta-group {
+  display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+  margin-top: 2rem; position: relative; z-index: 1;
+  animation: fadeIn 2s ease 1s both;
+}
+.btn {
+  padding: 0.85rem 2.5rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  cursor: pointer; border: none;
+  transition: all 0.4s ease;
+  text-decoration: none; display: inline-block;
+}
+.btn-gold {
+  background: linear-gradient(135deg, var(--dorado), var(--dorado-claro));
+  color: var(--negro); font-weight: 600;
+}
+.btn-gold:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(201,168,76,0.4);
+}
+.btn-outline {
+  background: transparent;
+  border: 1px solid var(--dorado);
+  color: var(--dorado);
+}
+.btn-outline:hover {
+  background: rgba(201,168,76,0.1);
+  transform: translateY(-2px);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 1.2rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+}
+.nav-brand {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  color: var(--dorado);
+  letter-spacing: 0.1em;
+}
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a {
+  color: var(--gris-claro); text-decoration: none;
+  font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--dorado); }
+.admin-btn {
+  background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--dorado);
+  padding: 0.4rem 1rem;
+  font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+  cursor: pointer; transition: all 0.3s;
+}
+.admin-btn:hover { background: rgba(201,168,76,0.2); }
+
+/* ─── SECCIONES ─── */
+section { position: relative; z-index: 1; }
+
+.section-header {
+  text-align: center; padding: 5rem 2rem 3rem;
+}
+.section-label {
+  font-size: 0.65rem; letter-spacing: 0.4em; text-transform: uppercase;
+  color: var(--dorado); margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 300; color: var(--blanco);
+  line-height: 1.2;
+}
+.section-title em { color: var(--rosa); font-style: italic; }
+
+/* ─── SERVICIOS ─── */
+#servicios { background: #0d0d0d; padding-bottom: 5rem; }
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 0; max-width: 1200px; margin: 0 auto;
+  padding: 0 2rem;
+}
+.category-card {
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 3rem 2.5rem;
+  position: relative; overflow: hidden;
+  transition: all 0.4s ease;
+}
+.category-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(201,168,76,0.03) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+}
+.category-card:hover { border-color: rgba(201,168,76,0.4); }
+.category-card:hover::before { opacity: 1; }
+.category-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 4rem; color: rgba(201,168,76,0.1);
+  position: absolute; top: 1rem; right: 1.5rem;
+  line-height: 1; font-weight: 300;
+}
+.category-tag {
+  font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dorado); margin-bottom: 0.8rem;
+}
+.category-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem; font-weight: 300;
+  color: var(--blanco); margin-bottom: 1.5rem;
+  line-height: 1.2;
+}
+.service-list { list-style: none; }
+.service-list li {
+  padding: 0.6rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.8rem; color: var(--gris-claro);
+  display: flex; align-items: center; gap: 0.6rem;
+  cursor: pointer; transition: color 0.3s;
+}
+.service-list li:last-child { border-bottom: none; }
+.service-list li:hover { color: var(--rosa); }
+.service-list li::before {
+  content: '◆'; font-size: 0.4rem; color: var(--dorado);
+  flex-shrink: 0;
+}
+
+/* Cejas y facial */
+.extras-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px; max-width: 1200px; margin: 0 auto 0;
+  padding: 0 2rem;
+}
+.extra-card {
+  background: #111; padding: 2.5rem;
+  border: 1px solid rgba(201,168,76,0.1);
+  transition: all 0.4s;
+}
+.extra-card:hover { border-color: rgba(232,196,196,0.3); }
+.extra-icon {
+  font-size: 2rem; margin-bottom: 1rem;
+}
+.extra-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; color: var(--rosa); margin-bottom: 1rem;
+}
+.extra-items { list-style: none; }
+.extra-items li {
+  font-size: 0.78rem; color: var(--gris-claro);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.extra-items li:last-child { border-bottom: none; }
+
+/* ─── ABONO BANNER ─── */
+.abono-banner {
+  background: linear-gradient(135deg, #1a1200, #0d0d0d);
+  border-top: 1px solid rgba(201,168,76,0.3);
+  border-bottom: 1px solid rgba(201,168,76,0.3);
+  padding: 2.5rem 2rem;
+  text-align: center;
+}
+.abono-badge {
+  display: inline-flex; align-items: center; gap: 1rem;
+  background: rgba(201,168,76,0.08);
+  border: 1px solid rgba(201,168,76,0.25);
+  padding: 1rem 2.5rem;
+}
+.abono-icon { font-size: 1.5rem; }
+.abono-text { text-align: left; }
+.abono-label {
+  font-size: 0.6rem; letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--dorado); display: block;
+}
+.abono-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; color: var(--blanco);
+}
+.abono-note {
+  font-size: 0.7rem; color: var(--gris); margin-top: 0.3rem;
+  display: block;
+}
+
+/* ─── AGENDAMIENTO ─── */
+#agendar { background: #080808; padding-bottom: 5rem; }
+
+.booking-wrapper {
+  max-width: 900px; margin: 0 auto; padding: 0 2rem;
+}
+.booking-card {
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 3rem;
+}
+.step-indicator {
+  display: flex; justify-content: center; gap: 0; margin-bottom: 3rem;
+}
+.step {
+  display: flex; align-items: center; gap: 0;
+}
+.step-dot {
+  width: 36px; height: 36px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.7rem; font-weight: 600;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--gris); background: #0a0a0a;
+  transition: all 0.3s; cursor: default;
+}
+.step-dot.active {
+  border-color: var(--dorado); color: var(--dorado);
+  background: rgba(201,168,76,0.1);
+}
+.step-dot.done {
+  border-color: var(--dorado); color: var(--negro);
+  background: var(--dorado);
+}
+.step-line {
+  width: 60px; height: 1px;
+  background: rgba(201,168,76,0.2);
+}
+.step-labels {
+  display: flex; justify-content: center; gap: 0; margin-bottom: 2.5rem;
+}
+.step-label {
+  width: 96px; text-align: center;
+  font-size: 0.6rem; letter-spacing: 0.1em; color: var(--gris);
+}
+
+/* Formulario */
+.form-step { display: none; }
+.form-step.active { display: block; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.form-row.single { grid-template-columns: 1fr; }
+
+.form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.form-label {
+  font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--dorado);
+}
+.form-input, .form-select {
+  background: #0a0a0a;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--blanco);
+  padding: 0.85rem 1rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.82rem;
+  outline: none; transition: border-color 0.3s;
+  width: 100%;
+}
+.form-input:focus, .form-select:focus {
+  border-color: var(--dorado);
+}
+.form-select option { background: #111; }
+
+/* Servicios seleccionables */
+.service-picker {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.8rem; margin-top: 0.5rem;
+}
+.service-chip {
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #0a0a0a;
+  cursor: pointer; font-size: 0.75rem;
+  color: var(--gris-claro); text-align: center;
+  transition: all 0.3s;
+}
+.service-chip:hover {
+  border-color: rgba(232,196,196,0.4); color: var(--rosa);
+}
+.service-chip.selected {
+  border-color: var(--dorado); color: var(--dorado);
+  background: rgba(201,168,76,0.08);
+}
+
+/* Horas disponibles */
+.time-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 0.8rem; margin-top: 0.5rem;
+}
+.time-slot {
+  padding: 0.9rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #0a0a0a;
+  cursor: pointer; text-align: center;
+  font-size: 0.85rem; color: var(--gris-claro);
+  transition: all 0.3s; font-family: 'Montserrat', sans-serif;
+}
+.time-slot:hover:not(.taken) {
+  border-color: var(--dorado); color: var(--dorado);
+}
+.time-slot.selected {
+  border-color: var(--dorado); color: var(--negro);
+  background: var(--dorado); font-weight: 600;
+}
+.time-slot.taken {
+  opacity: 0.3; cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* Resumen */
+.summary-box {
+  background: #0a0a0a;
+  border: 1px solid rgba(201,168,76,0.2);
+  padding: 2rem; margin-bottom: 1.5rem;
+}
+.summary-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.8rem;
+}
+.summary-row:last-child { border-bottom: none; }
+.summary-key { color: var(--gris); }
+.summary-val { color: var(--blanco); font-weight: 500; }
+.summary-val.gold { color: var(--dorado); }
+
+.abono-box {
+  background: rgba(201,168,76,0.06);
+  border: 1px solid rgba(201,168,76,0.25);
+  padding: 1.5rem; margin-bottom: 1.5rem;
+  display: flex; gap: 1rem; align-items: flex-start;
+}
+.abono-box-icon { font-size: 1.3rem; flex-shrink: 0; }
+.abono-box-text h4 {
+  font-size: 0.75rem; letter-spacing: 0.2em; color: var(--dorado);
+  text-transform: uppercase; margin-bottom: 0.4rem;
+}
+.abono-box-text p { font-size: 0.75rem; color: var(--gris-claro); line-height: 1.6; }
+
+/* WhatsApp info */
+.wa-note {
+  background: rgba(37,211,102,0.05);
+  border: 1px solid rgba(37,211,102,0.2);
+  padding: 1rem 1.5rem;
+  display: flex; gap: 0.8rem; align-items: center;
+  font-size: 0.75rem; color: var(--gris-claro); margin-bottom: 1.5rem;
+}
+.wa-note .wa-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+/* Nav botones form */
+.form-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 2rem;
+}
+
+/* Confirmación */
+.confirmation-screen {
+  display: none; text-align: center; padding: 3rem 2rem;
+}
+.confirmation-screen.active { display: block; }
+.confirm-icon {
+  font-size: 4rem; margin-bottom: 1.5rem;
+  animation: pulse 2s ease infinite;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+.confirm-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; color: var(--dorado); margin-bottom: 0.5rem;
+}
+.confirm-sub { font-size: 0.8rem; color: var(--gris-claro); line-height: 1.7; }
+
+/* ─── PANEL ADMIN ─── */
+#admin-panel {
+  display: none; position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.95); overflow-y: auto; padding: 2rem;
+}
+#admin-panel.open { display: block; }
+
+.admin-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 2rem; padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+}
+.admin-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; color: var(--dorado);
+}
+.close-btn {
+  background: none; border: 1px solid rgba(255,255,255,0.2);
+  color: var(--blanco); padding: 0.5rem 1rem;
+  cursor: pointer; font-size: 0.75rem; transition: all 0.3s;
+}
+.close-btn:hover { border-color: var(--dorado); color: var(--dorado); }
+
+.stats-grid {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem; margin-bottom: 2rem;
+}
+.stat-card {
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.15);
+  padding: 1.5rem;
+}
+.stat-label {
+  font-size: 0.6rem; letter-spacing: 0.3em; color: var(--gris);
+  text-transform: uppercase; display: block; margin-bottom: 0.5rem;
+}
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.5rem; color: var(--dorado); line-height: 1;
+}
+.stat-sub { font-size: 0.7rem; color: var(--gris); margin-top: 0.3rem; }
+
+.admin-citas {
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.15);
+  overflow: hidden;
+}
+.admin-citas-header {
+  padding: 1.5rem; display: flex; justify-content: space-between; align-items: center;
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.admin-citas-title {
+  font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--blanco);
+}
+.admin-filter { display: flex; gap: 0.8rem; }
+.filter-btn {
+  padding: 0.35rem 0.9rem;
+  background: none; border: 1px solid rgba(255,255,255,0.1);
+  color: var(--gris); font-size: 0.65rem; letter-spacing: 0.15em;
+  cursor: pointer; transition: all 0.3s;
+}
+.filter-btn.active, .filter-btn:hover {
+  border-color: var(--dorado); color: var(--dorado);
+}
+
+.cita-table { width: 100%; border-collapse: collapse; }
+.cita-table th {
+  padding: 1rem 1.5rem; text-align: left;
+  font-size: 0.6rem; letter-spacing: 0.25em; color: var(--gris);
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.cita-table td {
+  padding: 1rem 1.5rem;
+  font-size: 0.78rem; color: var(--gris-claro);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.cita-table tr:hover td { background: rgba(201,168,76,0.03); }
+.badge {
+  display: inline-block; padding: 0.2rem 0.7rem;
+  font-size: 0.6rem; letter-spacing: 0.15em; border-radius: 20px;
+}
+.badge-pending {
+  background: rgba(201,168,76,0.1); color: var(--dorado);
+  border: 1px solid rgba(201,168,76,0.2);
+}
+.badge-done {
+  background: rgba(37,211,102,0.1); color: #25d366;
+  border: 1px solid rgba(37,211,102,0.2);
+}
+.badge-cancel {
+  background: rgba(200,60,60,0.1); color: #e05555;
+  border: 1px solid rgba(200,60,60,0.2);
+}
+
+/* Gráfica simple */
+.chart-bar-wrap {
+  padding: 1.5rem;
+  background: #111;
+  border: 1px solid rgba(201,168,76,0.15);
+  margin-bottom: 1rem;
+}
+.chart-title {
+  font-size: 0.7rem; letter-spacing: 0.2em; color: var(--gris);
+  text-transform: uppercase; margin-bottom: 1.2rem;
+}
+.bar-chart { display: flex; align-items: flex-end; gap: 0.5rem; height: 120px; }
+.bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; }
+.bar {
+  width: 100%; background: linear-gradient(to top, var(--dorado), var(--dorado-claro));
+  opacity: 0.8; transition: opacity 0.3s; cursor: default; border-radius: 2px 2px 0 0;
+}
+.bar:hover { opacity: 1; }
+.bar-label { font-size: 0.55rem; color: var(--gris); text-align: center; }
+.bar-val { font-size: 0.6rem; color: var(--dorado); }
+
+/* Login admin */
+.admin-login {
+  max-width: 350px; margin: 5rem auto; text-align: center;
+}
+.admin-login h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; color: var(--dorado); margin-bottom: 0.5rem;
+}
+.admin-login p { font-size: 0.75rem; color: var(--gris); margin-bottom: 2rem; }
+.admin-login .form-group { margin-bottom: 1rem; text-align: left; }
+.admin-login-error {
+  color: #e05555; font-size: 0.73rem; margin-bottom: 1rem; display: none;
+}
+.admin-content { display: none; }
+.admin-content.visible { display: block; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: #050505;
+  border-top: 1px solid rgba(201,168,76,0.1);
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.footer-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem; color: var(--dorado); letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+.footer-city {
+  font-size: 0.65rem; letter-spacing: 0.4em; color: var(--gris);
+  text-transform: uppercase; margin-bottom: 1.5rem;
+}
+.footer-wa {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  background: rgba(37,211,102,0.1);
+  border: 1px solid rgba(37,211,102,0.25);
+  padding: 0.7rem 1.5rem;
+  color: #25d366; text-decoration: none;
+  font-size: 0.75rem; letter-spacing: 0.15em;
+  transition: all 0.3s;
+}
+.footer-wa:hover { background: rgba(37,211,102,0.2); }
+.footer-copy {
+  margin-top: 2rem;
+  font-size: 0.6rem; color: rgba(255,255,255,0.15); letter-spacing: 0.2em;
+}
+
+/* ─── SCROLL SUAVE ─── */
+html { scroll-behavior: smooth; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 640px) {
+  nav { padding: 1rem; }
+  .nav-links { display: none; }
+  .form-row { grid-template-columns: 1fr; }
+  .booking-card { padding: 1.5rem; }
+  .cita-table th:nth-child(4),
+  .cita-table td:nth-child(4) { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Partículas -->
+<div class="bg-particles" id="particles"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">TatiLash MZ</div>
+  <ul class="nav-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#agendar">Agendar</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+  <button class="admin-btn" onclick="openAdmin()">Admin ▸</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:80px">
+  <div class="hero-logo">TatiLash MZ</div>
+  <div class="hero-sub">Pestañas Pelo a Pelo</div>
+  <div class="gold-line"></div>
+  <div class="hero-tagline">Arte en cada mirada · Popayán, Colombia</div>
+  <div class="cta-group">
+    <a href="#agendar" class="btn btn-gold">Agendar Cita</a>
+    <a href="#servicios" class="btn btn-outline">Ver Servicios</a>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-header">
+    <p class="section-label">Catálogo</p>
+    <h2 class="section-title">Nuestros <em>Servicios</em></h2>
+  </div>
+
+  <div class="services-grid">
+    <!-- Categoría 1 -->
+    <div class="category-card">
+      <div class="category-number">01</div>
+      <p class="category-tag">Categoría 1</p>
+      <h3 class="category-name">Línea<br>Natural</h3>
+      <ul class="service-list">
+        <li>Efecto Clásico</li>
+        <li>Efecto Pestañina</li>
+        <li>Tecno Rímel</li>
+      </ul>
+    </div>
+
+    <!-- Categoría 2 -->
+    <div class="category-card">
+      <div class="category-number">02</div>
+      <p class="category-tag">Categoría 2</p>
+      <h3 class="category-name">Efectos en<br>Tendencia</h3>
+      <ul class="service-list">
+        <li>Efecto Húmedo</li>
+        <li>Foxy Eyes</li>
+        <li>Comic Lashes</li>
+        <li>Efecto Aurora</li>
+      </ul>
+    </div>
+
+    <!-- Categoría 3 -->
+    <div class="category-card">
+      <div class="category-number">03</div>
+      <p class="category-tag">Categoría 3</p>
+      <h3 class="category-name">Volúmenes<br>Intensos</h3>
+      <ul class="service-list">
+        <li>Volumen Hawaiano</li>
+        <li>Volumen Griego</li>
+        <li>Volumen Árabe</li>
+        <li>Volumen Inglés</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Extras -->
+  <div class="extras-grid" style="margin-top:1px">
+    <div class="extra-card">
+      <div class="extra-icon">✦</div>
+      <h3 class="extra-title">Cejas</h3>
+      <ul class="extra-items">
+        <li>Diseño de Cejas con Pigmento</li>
+        <li>Depilación de Cejas con Cera</li>
+        <li>Depilación de Bozo</li>
+      </ul>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">✦</div>
+      <h3 class="extra-title">Limpiezas Faciales</h3>
+      <ul class="extra-items">
+        <li>Limpieza Básica</li>
+        <li>Limpieza Premium</li>
+      </ul>
+    </div>
+    <div class="extra-card">
+      <div class="extra-icon">✦</div>
+      <h3 class="extra-title">Retoques</h3>
+      <ul class="extra-items">
+        <li>Retoque de Pestañas</li>
+        <li>Solicita disponibilidad</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Banner abono -->
+  <div class="abono-banner" style="margin-top:3rem">
+    <div class="abono-badge">
+      <div class="abono-icon">💳</div>
+      <div class="abono-text">
+        <span class="abono-label">Reserva tu cita</span>
+        <span class="abono-amount">Abono de $20.000 COP</span>
+        <span class="abono-note">Para confirmar tu cita se requiere un abono. El saldo restante se paga el día de la cita.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDAR -->
+<section id="agendar">
+  <div class="section-header">
+    <p class="section-label">Reservas</p>
+    <h2 class="section-title">Agenda tu <em>Cita</em></h2>
+  </div>
+
+  <div class="booking-wrapper">
+    <!-- Indicador pasos -->
+    <div class="step-indicator">
+      <div class="step">
+        <div class="step-dot active" id="dot1">1</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-dot" id="dot2">2</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-dot" id="dot3">3</div>
+        <div class="step-line"></div>
+      </div>
+      <div class="step">
+        <div class="step-dot" id="dot4">4</div>
+      </div>
+    </div>
+    <div class="step-labels">
+      <div class="step-label">Tus Datos</div>
+      <div class="step-label">Servicio</div>
+      <div class="step-label">Fecha y Hora</div>
+      <div class="step-label">Confirmar</div>
+    </div>
+
+    <div class="booking-card">
+      <!-- Paso 1: Datos cliente -->
+      <div class="form-step active" id="step1">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Nombre</label>
+            <input class="form-input" id="inp-nombre" type="text" placeholder="Tu nombre completo">
+          </div>
+          <div class="form-group">
+            <label class="form-label">WhatsApp</label>
+            <input class="form-input" id="inp-wa" type="tel" placeholder="Ej: 3001234567">
+          </div>
+        </div>
+        <div class="form-row single">
+          <div class="form-group">
+            <label class="form-label">¿Es tu primera vez con nosotras?</label>
+            <select class="form-select" id="inp-primera">
+              <option value="si">Sí, es mi primera cita 🌸</option>
+              <option value="no">No, ya he venido antes</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-nav">
+          <span></span>
+          <button class="btn btn-gold" onclick="goStep(2)">Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- Paso 2: Servicio -->
+      <div class="form-step" id="step2">
+        <div class="form-group" style="margin-bottom:1.5rem">
+          <label class="form-label">Selecciona tu servicio</label>
+          <div class="service-picker" id="service-picker">
+            <!-- Línea Natural -->
+            <div class="service-chip" onclick="selectService(this,'Efecto Clásico')">Efecto Clásico</div>
+            <div class="service-chip" onclick="selectService(this,'Efecto Pestañina')">Efecto Pestañina</div>
+            <div class="service-chip" onclick="selectService(this,'Tecno Rímel')">Tecno Rímel</div>
+            <!-- Tendencia -->
+            <div class="service-chip" onclick="selectService(this,'Efecto Húmedo')">Efecto Húmedo</div>
+            <div class="service-chip" onclick="selectService(this,'Foxy Eyes')">Foxy Eyes</div>
+            <div class="service-chip" onclick="selectService(this,'Comic Lashes')">Comic Lashes</div>
+            <div class="service-chip" onclick="selectService(this,'Efecto Aurora')">Efecto Aurora</div>
+            <!-- Volúmenes -->
+            <div class="service-chip" onclick="selectService(this,'Volumen Hawaiano')">Volumen Hawaiano</div>
+            <div class="service-chip" onclick="selectService(this,'Volumen Griego')">Volumen Griego</div>
+            <div class="service-chip" onclick="selectService(this,'Volumen Árabe')">Volumen Árabe</div>
+            <div class="service-chip" onclick="selectService(this,'Volumen Inglés')">Volumen Inglés</div>
+            <!-- Cejas -->
+            <div class="service-chip" onclick="selectService(this,'Diseño Cejas con Pigmento')">Diseño Cejas Pigmento</div>
+            <div class="service-chip" onclick="selectService(this,'Depilación Cejas Cera')">Depilación Cejas Cera</div>
+            <div class="service-chip" onclick="selectService(this,'Depilación Bozo')">Depilación Bozo</div>
+            <!-- Facial -->
+            <div class="service-chip" onclick="selectService(this,'Limpieza Facial Básica')">Limpieza Básica</div>
+            <div class="service-chip" onclick="selectService(this,'Limpieza Facial Premium')">Limpieza Premium</div>
+            <!-- Retoques -->
+            <div class="service-chip" onclick="selectService(this,'Retoque de Pestañas')">Retoque Pestañas</div>
+          </div>
+        </div>
+        <div id="retoque-extra" style="display:none;margin-bottom:1.5rem">
+          <div class="form-group">
+            <label class="form-label">¿Qué efecto llevas actualmente?</label>
+            <select class="form-select" id="inp-efecto-actual">
+              <option value="">— Selecciona tu efecto actual —</option>
+              <option>Efecto Clásico</option>
+              <option>Efecto Pestañina</option>
+              <option>Tecno Rímel</option>
+              <option>Efecto Húmedo</option>
+              <option>Foxy Eyes</option>
+              <option>Comic Lashes</option>
+              <option>Efecto Aurora</option>
+              <option>Volumen Hawaiano</option>
+              <option>Volumen Griego</option>
+              <option>Volumen Árabe</option>
+              <option>Volumen Inglés</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-nav">
+          <button class="btn btn-outline" onclick="goStep(1)">← Volver</button>
+          <button class="btn btn-gold" onclick="goStep(3)">Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- Paso 3: Fecha y hora -->
+      <div class="form-step" id="step3">
+        <div class="form-row" style="margin-bottom:2rem">
+          <div class="form-group">
+            <label class="form-label">Selecciona una Fecha</label>
+            <input class="form-input" id="inp-fecha" type="date" onchange="updateSlots()">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Día de la semana</label>
+            <div class="form-input" id="day-display" style="color:var(--gris);pointer-events:none">—</div>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-bottom:1.5rem">
+          <label class="form-label">Horas Disponibles</label>
+          <div class="time-grid" id="time-grid">
+            <!-- generado por JS -->
+          </div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-outline" onclick="goStep(2)">← Volver</button>
+          <button class="btn btn-gold" onclick="goStep(4)">Siguiente →</button>
+        </div>
+      </div>
+
+      <!-- Paso 4: Confirmación -->
+      <div class="form-step" id="step4">
+        <div class="summary-box">
+          <div class="summary-row">
+            <span class="summary-key">Cliente</span>
+            <span class="summary-val" id="sum-nombre">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">WhatsApp</span>
+            <span class="summary-val" id="sum-wa">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Servicio</span>
+            <span class="summary-val" id="sum-servicio">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Fecha</span>
+            <span class="summary-val" id="sum-fecha">—</span>
+          </div>
+          <div class="summary-row">
+            <span class="summary-key">Hora</span>
+            <span class="summary-val gold" id="sum-hora">—</span>
+          </div>
+        </div>
+
+        <div class="abono-box">
+          <div class="abono-box-icon">💛</div>
+          <div class="abono-box-text">
+            <h4>Abono requerido: $20.000 COP</h4>
+            <p>Para confirmar tu cita debes realizar el abono vía Nequi o Daviplata. Una vez enviado, comparte el comprobante por WhatsApp a <strong>Tatiana</strong> y tu cita quedará asegurada. El saldo restante se paga el día de la cita.</p>
+          </div>
+        </div>
+
+        <div class="wa-note">
+          <div class="wa-icon">📲</div>
+          <div>Recibirás un recordatorio automático por <strong>WhatsApp</strong> el día anterior a tu cita. ¡Asegúrate de que tu número esté correcto!</div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-outline" onclick="goStep(3)">← Volver</button>
+          <button class="btn btn-gold" onclick="confirmarCita()">Confirmar Cita ✓</button>
+        </div>
+      </div>
+
+      <!-- Pantalla de éxito -->
+      <div class="confirmation-screen" id="confirm-screen">
+        <div class="confirm-icon">✨</div>
+        <h2 class="confirm-title">¡Cita Agendada!</h2>
+        <p class="confirm-sub" id="confirm-msg"></p>
+        <br>
+        <button class="btn btn-gold" onclick="nuevaCita()" style="margin-top:1.5rem">Agendar Otra Cita</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto" style="padding:4rem 2rem; text-align:center; background:#0d0d0d">
+  <p class="section-label">Encuéntranos</p>
+  <h2 class="section-title" style="margin-bottom:2rem">Contáctanos</h2>
+  <a class="footer-wa" href="https://wa.me/573245707010" target="_blank" style="font-size:0.9rem; padding:1rem 2rem">
+    💬 &nbsp; WhatsApp TatiLash MZ
+  </a>
+  <p style="margin-top:1rem; font-size:0.72rem; color:var(--gris)">Popayán, Cauca · Lunes a Sábado</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">TatiLash MZ</div>
+  <div class="footer-city">Popayán · Colombia</div>
+  <div class="footer-copy">© 2025 TatiLash MZ · Pestañas Pelo a Pelo · Todos los derechos reservados</div>
+</footer>
+
+<!-- ─── PANEL ADMIN ─── -->
+<div id="admin-panel">
+  <!-- Login -->
+  <div class="admin-login" id="admin-login-form">
+    <h2>Panel Admin</h2>
+    <p>Ingresa tu contraseña para acceder</p>
+    <div id="login-error" class="admin-login-error">Contraseña incorrecta</div>
+    <div class="form-group">
+      <label class="form-label">Contraseña</label>
+      <input class="form-input" id="admin-pass" type="password" placeholder="••••••••" onkeydown="if(event.key==='Enter')loginAdmin()">
+    </div>
+    <button class="btn btn-gold" onclick="loginAdmin()" style="width:100%;margin-top:1rem">Entrar</button>
+    <br>
+    <button class="btn btn-outline" onclick="closeAdmin()" style="width:100%;margin-top:0.8rem">Cancelar</button>
+  </div>
+
+  <!-- Contenido admin -->
+  <div class="admin-content" id="admin-content">
+    <div class="admin-header">
+      <h2 class="admin-title">Dashboard · TatiLash MZ</h2>
+      <div style="display:flex;gap:0.8rem">
+        <button class="filter-btn active">Este Mes</button>
+        <button class="close-btn" onclick="closeAdmin()">✕ Cerrar</button>
+      </div>
+    </div>
+
+    <!-- Estadísticas -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">Citas Este Mes</span>
+        <div class="stat-value" id="stat-total">0</div>
+        <div class="stat-sub">Total agendadas</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Pendientes</span>
+        <div class="stat-value" id="stat-pending" style="color:var(--dorado)">0</div>
+        <div class="stat-sub">Por confirmar abono</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Completadas</span>
+        <div class="stat-value" id="stat-done" style="color:#25d366">0</div>
+        <div class="stat-sub">Este mes</div>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Abonos Recibidos</span>
+        <div class="stat-value" id="stat-abonos" style="color:var(--rosa)">$0</div>
+        <div class="stat-sub">En depósitos</div>
+      </div>
+    </div>
+
+    <!-- Mini gráfica -->
+    <div class="chart-bar-wrap" style="margin-bottom:1rem">
+      <div class="chart-title">Citas por día de la semana (este mes)</div>
+      <div class="bar-chart" id="bar-chart"></div>
+    </div>
+
+    <!-- Servicio más popular -->
+    <div class="chart-bar-wrap" style="margin-bottom:2rem">
+      <div class="chart-title">Servicios más solicitados</div>
+      <div id="popular-services" style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.5rem"></div>
+    </div>
+
+    <!-- Tabla citas -->
+    <div class="admin-citas">
+      <div class="admin-citas-header">
+        <div class="admin-citas-title">Próximas Citas</div>
+        <div class="admin-filter">
+          <button class="filter-btn active" onclick="filterCitas('all',this)">Todas</button>
+          <button class="filter-btn" onclick="filterCitas('pending',this)">Pendientes</button>
+          <button class="filter-btn" onclick="filterCitas('done',this)">Completadas</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto">
+        <table class="cita-table">
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Servicio</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>WhatsApp</th>
+              <th>Estado</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="citas-tbody">
+            <tr><td colspan="7" style="text-align:center;color:var(--gris);padding:3rem">Aún no hay citas registradas</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SCRIPTS ─── -->
+<script>
+// ── Partículas ──
+(function(){
+  const container = document.getElementById('particles');
+  for(let i=0;i<25;i++){
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      width:${Math.random()*3+1}px;
+      height:${Math.random()*3+1}px;
+      animation-duration:${8+Math.random()*12}s;
+      animation-delay:${Math.random()*10}s;
+    `;
+    container.appendChild(p);
+  }
+})();
+
+// ── Estado global ──
+let bookingData = { nombre:'', wa:'', servicio:'', fecha:'', hora:'' };
+let appointments = JSON.parse(localStorage.getItem('tatilash_citas')||'[]');
+const TIMES = ['10:00 AM','11:00 AM','12:00 PM','2:00 PM','3:30 PM','5:00 PM','6:30 PM'];
+const ADMIN_PASS = 'tatilash2025'; // ← Contraseña de acceso admin
+
+// ── Paso a paso ──
+function goStep(n){
+  // Validaciones
+  if(n===2){
+    if(!document.getElementById('inp-nombre').value.trim()||
+       !document.getElementById('inp-wa').value.trim()){
+      alert('Por favor completa tu nombre y número de WhatsApp.');return;
+    }
+    bookingData.nombre = document.getElementById('inp-nombre').value.trim();
+    bookingData.wa = document.getElementById('inp-wa').value.trim();
+  }
+  if(n===3 && !bookingData.servicio){
+    alert('Por favor selecciona un servicio.');return;
+  }
+  if(n===4){
+    if(!bookingData.fecha||!bookingData.hora){
+      alert('Por favor selecciona fecha y hora.');return;
+    }
+    fillSummary();
+  }
+  // Ocultar todos
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step'+n).classList.add('active');
+  // Dots
+  for(let i=1;i<=4;i++){
+    const d=document.getElementById('dot'+i);
+    d.classList.remove('active','done');
+    if(i<n) d.classList.add('done');
+    if(i===n) d.classList.add('active');
+  }
+}
+
+// ── Seleccionar servicio ──
+function selectService(el, name){
+  document.querySelectorAll('.service-chip').forEach(c=>c.classList.remove('selected'));
+  el.classList.add('selected');
+  bookingData.servicio = name;
+  // Mostrar campo de efecto actual solo para retoques de pestañas
+  const extra = document.getElementById('retoque-extra');
+  if(name === 'Retoque de Pestañas'){
+    extra.style.display = 'block';
+  } else {
+    extra.style.display = 'none';
+    document.getElementById('inp-efecto-actual').value = '';
+  }
+}
+
+// ── Actualizar slots ──
+function updateSlots(){
+  const inp = document.getElementById('inp-fecha');
+  const val = inp.value;
+  if(!val) return;
+  const d = new Date(val+'T12:00:00');
+  const days = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const dayName = days[d.getDay()];
+  document.getElementById('day-display').textContent = dayName;
+  if(d.getDay()===0){ // Domingo bloqueado
+    document.getElementById('time-grid').innerHTML = '<p style="color:var(--gris);font-size:0.8rem">No atendemos los domingos. Por favor elige otro día 🌸</p>';
+    bookingData.fecha=''; return;
+  }
+  bookingData.fecha = val;
+  const taken = appointments.filter(a=>a.fecha===val).map(a=>a.hora);
+  const grid = document.getElementById('time-grid');
+  grid.innerHTML = '';
+  TIMES.forEach(t=>{
+    const isTaken = taken.includes(t);
+    const div = document.createElement('div');
+    div.className = 'time-slot'+(isTaken?' taken':'');
+    div.textContent = t;
+    if(!isTaken) div.onclick = ()=>selectTime(div,t);
+    grid.appendChild(div);
+  });
+}
+
+function selectTime(el, t){
+  document.querySelectorAll('.time-slot').forEach(s=>s.classList.remove('selected'));
+  el.classList.add('selected');
+  bookingData.hora = t;
+}
+
+// ── Resumen ──
+function fillSummary(){
+  const fDate = new Date(bookingData.fecha+'T12:00:00');
+  const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
+  document.getElementById('sum-nombre').textContent = bookingData.nombre;
+  document.getElementById('sum-wa').textContent = '+57 '+bookingData.wa;
+  const efecto = document.getElementById('inp-efecto-actual').value;
+  const servicioFull = bookingData.servicio + (efecto ? ' · Efecto actual: '+efecto : '');
+  document.getElementById('sum-servicio').textContent = servicioFull;
+  document.getElementById('sum-fecha').textContent = fDate.toLocaleDateString('es-CO',opts);
+  document.getElementById('sum-hora').textContent = bookingData.hora;
+}
+
+// ── Confirmar cita ──
+function confirmarCita(){
+  const cita = {
+    id: Date.now(),
+    nombre: bookingData.nombre,
+    wa: bookingData.wa,
+    servicio: bookingData.servicio,
+    fecha: bookingData.fecha,
+    hora: bookingData.hora,
+    estado: 'pending',
+    createdAt: new Date().toISOString()
+  };
+  appointments.push(cita);
+  localStorage.setItem('tatilash_citas', JSON.stringify(appointments));
+
+  // Ocultar pasos, mostrar confirmación
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.step-dot').forEach(d=>{d.classList.remove('active');d.classList.add('done');});
+  const screen = document.getElementById('confirm-screen');
+  screen.classList.add('active');
+
+  const fDate = new Date(bookingData.fecha+'T12:00:00');
+  const opts = {weekday:'long',day:'numeric',month:'long'};
+  document.getElementById('confirm-msg').innerHTML =
+    `¡Hola <strong>${bookingData.nombre}</strong>! Tu cita para <strong>${bookingData.servicio}</strong> fue agendada el <strong>${fDate.toLocaleDateString('es-CO',opts)}</strong> a las <strong>${bookingData.hora}</strong>.<br><br>
+    💛 Recuerda enviar el comprobante del <strong>abono de $20.000</strong> por WhatsApp para confirmar tu cita.<br><br>
+    📲 Recibirás un recordatorio el día anterior. ¡Te esperamos con mucho amor! 🌸`;
+
+  // Enlace WhatsApp para recordatorio (simulado)
+  const msg = encodeURIComponent(
+    `¡Hola Tatiana! 😊 Acabo de agendar mi cita en TatiLash MZ.\n\n`+
+    `👤 Nombre: ${cita.nombre}\n`+
+    `💆 Servicio: ${cita.servicio}\n`+
+    `📅 Fecha: ${fDate.toLocaleDateString('es-CO',opts)}\n`+
+    `⏰ Hora: ${cita.hora}\n\n`+
+    `Adjunto el comprobante del abono de $20.000 💛`
+  );
+  // Pequeño botón WA debajo del mensaje
+  setTimeout(()=>{
+    const waBtnWrap = document.createElement('div');
+    waBtnWrap.style.marginTop='1.5rem';
+    waBtnWrap.innerHTML = `<a class="footer-wa" href="https://wa.me/573245707010?text=${msg}" target="_blank" style="display:inline-flex">📲 &nbsp; Enviar comprobante por WhatsApp</a>`;
+    document.getElementById('confirm-screen').appendChild(waBtnWrap);
+  },300);
+}
+
+// ── Nueva cita ──
+function nuevaCita(){
+  bookingData = {nombre:'',wa:'',servicio:'',fecha:'',hora:''};
+  document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
+  document.getElementById('step1').classList.add('active');
+  document.querySelectorAll('.form-step input, .form-step select').forEach(i=>i.value='');
+  document.querySelectorAll('.service-chip').forEach(c=>c.classList.remove('selected'));
+  document.getElementById('confirm-screen').classList.remove('active');
+  document.getElementById('confirm-screen').querySelectorAll('a').forEach(a=>a.remove());
+  document.getElementById('time-grid').innerHTML='';
+  document.getElementById('day-display').textContent='—';
+  for(let i=1;i<=4;i++){
+    const d=document.getElementById('dot'+i);
+    d.classList.remove('done','active');
+    if(i===1)d.classList.add('active');
+  }
+}
+
+// ── Admin ──
+function openAdmin(){
+  document.getElementById('admin-panel').classList.add('open');
+  document.getElementById('admin-login-form').style.display='block';
+  document.getElementById('admin-content').classList.remove('visible');
+  document.getElementById('admin-pass').value='';
+  document.getElementById('login-error').style.display='none';
+}
+function closeAdmin(){
+  document.getElementById('admin-panel').classList.remove('open');
+}
+function loginAdmin(){
+  const pass = document.getElementById('admin-pass').value;
+  if(pass === ADMIN_PASS){
+    document.getElementById('admin-login-form').style.display='none';
+    document.getElementById('admin-content').classList.add('visible');
+    renderAdmin();
+  } else {
+    document.getElementById('login-error').style.display='block';
+  }
+}
+
+function renderAdmin(){
+  appointments = JSON.parse(localStorage.getItem('tatilash_citas')||'[]');
+  const now = new Date();
+  const thisMonth = now.getMonth(); const thisYear = now.getFullYear();
+  const monthly = appointments.filter(a=>{
+    const d=new Date(a.fecha+'T12:00:00');
+    return d.getMonth()===thisMonth && d.getFullYear()===thisYear;
+  });
+
+  document.getElementById('stat-total').textContent = monthly.length;
+  document.getElementById('stat-pending').textContent = monthly.filter(a=>a.estado==='pending').length;
+  document.getElementById('stat-done').textContent = monthly.filter(a=>a.estado==='done').length;
+  document.getElementById('stat-abonos').textContent = '$'+((monthly.filter(a=>a.estado!=='cancel').length)*20000).toLocaleString('es-CO');
+
+  // Gráfica días semana
+  const dayLabels = ['Lun','Mar','Mié','Jue','Vie','Sáb'];
+  const dayCounts = [0,0,0,0,0,0];
+  monthly.forEach(a=>{
+    const d=new Date(a.fecha+'T12:00:00').getDay();
+    if(d>=1&&d<=6) dayCounts[d-1]++;
+  });
+  const maxD = Math.max(...dayCounts,1);
+  const barChart = document.getElementById('bar-chart');
+  barChart.innerHTML='';
+  dayLabels.forEach((l,i)=>{
+    const h = Math.max(8, (dayCounts[i]/maxD)*100);
+    barChart.innerHTML += `<div class="bar-col"><div class="bar-val">${dayCounts[i]}</div><div class="bar" style="height:${h}px"></div><div class="bar-label">${l}</div></div>`;
+  });
+
+  // Servicios populares
+  const svcCount = {};
+  monthly.forEach(a=>{ svcCount[a.servicio]=(svcCount[a.servicio]||0)+1; });
+  const sorted = Object.entries(svcCount).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const ps = document.getElementById('popular-services');
+  ps.innerHTML='';
+  if(sorted.length===0) ps.innerHTML='<span style="font-size:0.75rem;color:var(--gris)">Sin datos aún</span>';
+  sorted.forEach(([s,c])=>{
+    ps.innerHTML+=`<span style="background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.2);padding:0.4rem 0.9rem;font-size:0.7rem;color:var(--dorado)">${s} <strong>(${c})</strong></span>`;
+  });
+
+  // Tabla citas
+  renderTable('all');
+}
+
+function renderTable(filter){
+  appointments = JSON.parse(localStorage.getItem('tatilash_citas')||'[]');
+  let data = [...appointments].sort((a,b)=>new Date(a.fecha+' '+a.hora)-new Date(b.fecha+' '+b.hora));
+  if(filter==='pending') data=data.filter(a=>a.estado==='pending');
+  if(filter==='done') data=data.filter(a=>a.estado==='done');
+  const tbody = document.getElementById('citas-tbody');
+  if(!data.length){
+    tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gris);padding:3rem">Sin citas en esta categoría</td></tr>';
+    return;
+  }
+  tbody.innerHTML = data.map(a=>{
+    const badge = a.estado==='done'?'badge-done':a.estado==='cancel'?'badge-cancel':'badge-pending';
+    const label = a.estado==='done'?'Completada':a.estado==='cancel'?'Cancelada':'Pendiente';
+    const fDate = new Date(a.fecha+'T12:00:00').toLocaleDateString('es-CO',{day:'2-digit',month:'short',year:'numeric'});
+    const waLink = `https://wa.me/57${a.wa}?text=${encodeURIComponent('¡Hola '+a.nombre+'! 🌸 Te recordamos tu cita en TatiLash MZ mañana a las '+a.hora+' para '+a.servicio+'. ¡Te esperamos con cariño!')}`;
+    return `<tr>
+      <td><strong>${a.nombre}</strong></td>
+      <td>${a.servicio}</td>
+      <td>${fDate}</td>
+      <td>${a.hora}</td>
+      <td><a href="${waLink}" target="_blank" style="color:#25d366;text-decoration:none">📲 ${a.wa}</a></td>
+      <td><span class="badge ${badge}">${label}</span></td>
+      <td>
+        ${a.estado==='pending'?`<button onclick="markDone(${a.id})" style="background:none;border:1px solid rgba(37,211,102,0.3);color:#25d366;padding:0.25rem 0.6rem;font-size:0.6rem;cursor:pointer;margin-right:4px">✓</button>`:''}
+        <button onclick="deleteCita(${a.id})" style="background:none;border:1px solid rgba(200,60,60,0.3);color:#e05555;padding:0.25rem 0.6rem;font-size:0.6rem;cursor:pointer">✕</button>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function filterCitas(f, btn){
+  document.querySelectorAll('.admin-filter .filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable(f);
+}
+
+function markDone(id){
+  const idx = appointments.findIndex(a=>a.id===id);
+  if(idx>-1){ appointments[idx].estado='done'; localStorage.setItem('tatilash_citas',JSON.stringify(appointments)); renderAdmin(); }
+}
+function deleteCita(id){
+  if(!confirm('¿Segura que deseas eliminar esta cita?')) return;
+  appointments = appointments.filter(a=>a.id!==id);
+  localStorage.setItem('tatilash_citas',JSON.stringify(appointments));
+  renderAdmin();
+}
+
+// ── Fecha mínima (hoy) ──
+document.addEventListener('DOMContentLoaded',()=>{
+  const today = new Date().toISOString().split('T')[0];
+  document.getElementById('inp-fecha').min = today;
+});
+</script>
+</body>
+</html>
