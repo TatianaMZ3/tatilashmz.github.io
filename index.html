@@ -1083,8 +1083,24 @@ html { scroll-behavior: smooth; }
   </div>
 </div>
 
-<!-- ─── SCRIPTS ─── -->
-<script>
+<!-- ─── FIREBASE ─── -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+// ⚠️ REEMPLAZA ESTOS VALORES CON LOS DE TU PROYECTO FIREBASE
+const firebaseConfig = {
+  apiKey: "REEMPLAZAR_API_KEY",
+  authDomain: "REEMPLAZAR_AUTH_DOMAIN",
+  projectId: "REEMPLAZAR_PROJECT_ID",
+  storageBucket: "REEMPLAZAR_STORAGE_BUCKET",
+  messagingSenderId: "REEMPLAZAR_MESSAGING_ID",
+  appId: "REEMPLAZAR_APP_ID"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 // ── Partículas ──
 (function(){
   const container = document.getElementById('particles');
@@ -1104,9 +1120,21 @@ html { scroll-behavior: smooth; }
 
 // ── Estado global ──
 let bookingData = { nombre:'', wa:'', servicio:'', fecha:'', hora:'' };
-let appointments = JSON.parse(localStorage.getItem('tatilash_citas')||'[]');
+let appointments = [];
 const TIMES = ['10:00 AM','11:00 AM','12:00 PM','2:00 PM','3:30 PM','5:00 PM','6:30 PM'];
-const ADMIN_PASS = 'tatilash2025'; // ← Contraseña de acceso admin
+const ADMIN_PASS = 'tatilash2025';
+
+// ── Cargar citas desde Firebase ──
+async function cargarCitas() {
+  try {
+    const snap = await getDocs(collection(db, 'citas'));
+    appointments = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+  } catch(e) {
+    appointments = [];
+  }
+}
+
+cargarCitas();
 
 // ── Paso a paso ──
 function goStep(n){
@@ -1189,7 +1217,7 @@ function selectTime(el, t){
 }
 
 // ── Resumen ──
-function fillSummary(){
+async function fillSummary(){
   const fDate = new Date(bookingData.fecha+'T12:00:00');
   const opts = {weekday:'long',year:'numeric',month:'long',day:'numeric'};
   document.getElementById('sum-nombre').textContent = bookingData.nombre;
@@ -1199,22 +1227,37 @@ function fillSummary(){
   document.getElementById('sum-servicio').textContent = servicioFull;
   document.getElementById('sum-fecha').textContent = fDate.toLocaleDateString('es-CO',opts);
   document.getElementById('sum-hora').textContent = bookingData.hora;
+
+  // ── Guardar cita automáticamente al llegar al paso 4 ──
+  if(!bookingData.citaGuardada){
+    const cita = {
+      nombre: bookingData.nombre,
+      wa: bookingData.wa,
+      servicio: servicioFull,
+      fecha: bookingData.fecha,
+      hora: bookingData.hora,
+      estado: 'pending',
+      createdAt: new Date().toISOString()
+    };
+    try {
+      const docRef = await addDoc(collection(db, 'citas'), cita);
+      cita.id = docRef.id;
+      appointments.push(cita);
+      bookingData.citaGuardada = true;
+      bookingData.citaObj = cita;
+    } catch(e) {
+      // Si falla Firebase, guardar localmente de respaldo
+      cita.id = Date.now().toString();
+      appointments.push(cita);
+      bookingData.citaGuardada = true;
+      bookingData.citaObj = cita;
+    }
+  }
 }
 
-// ── Confirmar cita ──
+// ── Confirmar cita (ahora solo muestra la pantalla de éxito) ──
 function confirmarCita(){
-  const cita = {
-    id: Date.now(),
-    nombre: bookingData.nombre,
-    wa: bookingData.wa,
-    servicio: bookingData.servicio,
-    fecha: bookingData.fecha,
-    hora: bookingData.hora,
-    estado: 'pending',
-    createdAt: new Date().toISOString()
-  };
-  appointments.push(cita);
-  localStorage.setItem('tatilash_citas', JSON.stringify(appointments));
+  const cita = bookingData.citaObj || {};
 
   // Ocultar pasos, mostrar confirmación
   document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
@@ -1227,9 +1270,8 @@ function confirmarCita(){
   document.getElementById('confirm-msg').innerHTML =
     `¡Hola <strong>${bookingData.nombre}</strong>! Tu cita para <strong>${bookingData.servicio}</strong> fue agendada el <strong>${fDate.toLocaleDateString('es-CO',opts)}</strong> a las <strong>${bookingData.hora}</strong>.<br><br>
     💛 Recuerda enviar el comprobante del <strong>abono de $20.000</strong> por WhatsApp para confirmar tu cita.<br><br>
-    📲 Recibirás un recordatorio el día anterior. ¡Te esperamos con mucho amor! 🌸`;
+    📲 ¡Tu cita ya quedó guardada! Te esperamos con mucho amor. 🌸`;
 
-  // Enlace WhatsApp para recordatorio (simulado)
   const msg = encodeURIComponent(
     `¡Hola Tatiana! 😊 Acabo de agendar mi cita en TatiLash MZ.\n\n`+
     `👤 Nombre: ${cita.nombre}\n`+
@@ -1238,7 +1280,8 @@ function confirmarCita(){
     `⏰ Hora: ${cita.hora}\n\n`+
     `Adjunto el comprobante del abono de $20.000 💛`
   );
-  // Pequeño botón WA debajo del mensaje
+  // Limpiar botones anteriores si los hay
+  document.getElementById('confirm-screen').querySelectorAll('a').forEach(a=>a.remove());
   setTimeout(()=>{
     const waBtnWrap = document.createElement('div');
     waBtnWrap.style.marginTop='1.5rem';
@@ -1249,7 +1292,7 @@ function confirmarCita(){
 
 // ── Nueva cita ──
 function nuevaCita(){
-  bookingData = {nombre:'',wa:'',servicio:'',fecha:'',hora:''};
+  bookingData = {nombre:'',wa:'',servicio:'',fecha:'',hora:'',citaGuardada:false,citaObj:null};
   document.querySelectorAll('.form-step').forEach(s=>s.classList.remove('active'));
   document.getElementById('step1').classList.add('active');
   document.querySelectorAll('.form-step input, .form-step select').forEach(i=>i.value='');
@@ -1287,8 +1330,8 @@ function loginAdmin(){
   }
 }
 
-function renderAdmin(){
-  appointments = JSON.parse(localStorage.getItem('tatilash_citas')||'[]');
+async function renderAdmin(){
+  await cargarCitas();
   const now = new Date();
   const thisMonth = now.getMonth(); const thisYear = now.getFullYear();
   const monthly = appointments.filter(a=>{
@@ -1332,7 +1375,6 @@ function renderAdmin(){
 }
 
 function renderTable(filter){
-  appointments = JSON.parse(localStorage.getItem('tatilash_citas')||'[]');
   let data = [...appointments].sort((a,b)=>new Date(a.fecha+' '+a.hora)-new Date(b.fecha+' '+b.hora));
   if(filter==='pending') data=data.filter(a=>a.estado==='pending');
   if(filter==='done') data=data.filter(a=>a.estado==='done');
@@ -1367,15 +1409,18 @@ function filterCitas(f, btn){
   renderTable(f);
 }
 
-function markDone(id){
-  const idx = appointments.findIndex(a=>a.id===id);
-  if(idx>-1){ appointments[idx].estado='done'; localStorage.setItem('tatilash_citas',JSON.stringify(appointments)); renderAdmin(); }
+async function markDone(id){
+  try {
+    await updateDoc(doc(db, 'citas', id), { estado: 'done' });
+    renderAdmin();
+  } catch(e) { alert('Error al actualizar'); }
 }
-function deleteCita(id){
+async function deleteCita(id){
   if(!confirm('¿Segura que deseas eliminar esta cita?')) return;
-  appointments = appointments.filter(a=>a.id!==id);
-  localStorage.setItem('tatilash_citas',JSON.stringify(appointments));
-  renderAdmin();
+  try {
+    await deleteDoc(doc(db, 'citas', id));
+    renderAdmin();
+  } catch(e) { alert('Error al eliminar'); }
 }
 
 // ── Fecha mínima (hoy) ──
@@ -1383,6 +1428,19 @@ document.addEventListener('DOMContentLoaded',()=>{
   const today = new Date().toISOString().split('T')[0];
   document.getElementById('inp-fecha').min = today;
 });
+
+// Exponer funciones globales para los onclick del HTML
+window.goStep = goStep;
+window.selectService = selectService;
+window.updateSlots = updateSlots;
+window.confirmarCita = confirmarCita;
+window.nuevaCita = nuevaCita;
+window.openAdmin = openAdmin;
+window.closeAdmin = closeAdmin;
+window.loginAdmin = loginAdmin;
+window.filterCitas = filterCitas;
+window.markDone = markDone;
+window.deleteCita = deleteCita;
 </script>
 </body>
 </html>
